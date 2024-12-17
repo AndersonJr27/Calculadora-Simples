@@ -1,39 +1,79 @@
-def soma(a, b):
+import math  # Importa a biblioteca para operações matemáticas avançadas
+
+def menu():
+    print("\n===== CALCULADORA =====")
+    print("1. Soma")
+    print("2. Subtração")
+    print("3. Multiplicação")
+    print("4. Divisão")
+    print("5. Exponenciação (Potência)")
+    print("6. Raiz Quadrada")
+    print("7. Resto da Divisão (Módulo)")
+    print("8. Sair")
+    print("=======================")
+
+def somar(a, b):
     return a + b
 
-def subtracao(a, b):
+def subtrair(a, b):
     return a - b
 
-def multiplicacao(a, b):
+def multiplicar(a, b):
     return a * b
 
-def divisao(a, b):
+def dividir(a, b):
     if b == 0:
-        return "Erro: divisão por zero!"
+        return "Erro! Divisão por zero."
     return a / b
 
-print("Bem-vindo à Calculadora!")
-print("Escolha uma operação:")
-print("1. Soma")
-print("2. Subtração")
-print("3. Multiplicação")
-print("4. Divisão")
+def exponenciar(a, b):
+    return a ** b
 
-escolha = input("Digite o número da operação (1/2/3/4): ")
+def raiz_quadrada(a):
+    if a < 0:
+        return "Erro! Não existe raiz quadrada de número negativo."
+    return math.sqrt(a)
 
-try:
-    num1 = float(input("Digite o primeiro número: "))
-    num2 = float(input("Digite o segundo número: "))
+def modulo(a, b):
+    return a % b
 
-    if escolha == '1':
-        print(f"O resultado é: {soma(num1, num2)}")
-    elif escolha == '2':
-        print(f"O resultado é: {subtracao(num1, num2)}")
-    elif escolha == '3':
-        print(f"O resultado é: {multiplicacao(num1, num2)}")
-    elif escolha == '4':
-        print(f"O resultado é: {divisao(num1, num2)}")
+# Loop para manter a calculadora rodando
+while True:
+    menu()  # Mostra as opções no menu
+    escolha = input("Escolha uma opção (1-8): ")
+
+    if escolha == '8':
+        print("Calculadora encerrada. Até mais!")
+        break  # Encerra o programa
+    
+    # Operações que precisam de dois números
+    if escolha in ['1', '2', '3', '4', '5', '7']:
+        try:
+            numero1 = float(input("Digite o primeiro número: "))
+            numero2 = float(input("Digite o segundo número: "))
+        except ValueError:
+            print("Entrada inválida! Use apenas números.")
+            continue
+
+        if escolha == '1':
+            print(f"Resultado: {numero1} + {numero2} = {somar(numero1, numero2)}")
+        elif escolha == '2':
+            print(f"Resultado: {numero1} - {numero2} = {subtrair(numero1, numero2)}")
+        elif escolha == '3':
+            print(f"Resultado: {numero1} * {numero2} = {multiplicar(numero1, numero2)}")
+        elif escolha == '4':
+            print(f"Resultado: {numero1} / {numero2} = {dividir(numero1, numero2)}")
+        elif escolha == '5':
+            print(f"Resultado: {numero1} ** {numero2} = {exponenciar(numero1, numero2)}")
+        elif escolha == '7':
+            print(f"Resultado: O resto de {numero1} dividido por {numero2} é {modulo(numero1, numero2)}")
+
+    # Operação que usa apenas um número
+    elif escolha == '6':
+        try:
+            numero = float(input("Digite o número para calcular a raiz quadrada: "))
+            print(f"Resultado: A raiz quadrada de {numero} é {raiz_quadrada(numero)}")
+        except ValueError:
+            print("Entrada inválida! Use apenas números.")
     else:
-        print("Opção inválida.")
-except ValueError:
-    print("Erro: entrada inválida! Por favor, insira números.")
+        print("Opção inválida! Escolha um número de 1 a 8.")
